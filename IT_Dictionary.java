@@ -161,12 +161,7 @@ data[34] = "Virtual Machine: A software-based simulation of a physical computer.
         
         int resultIndex = BinarySearch(data, cleanInput);
 
-        /* not equal sa -1 means wala sa array list and word na gi pangita sa user.
-          pag 1 ang gi enter sa user mu return ang displayResult method ug boolean na false
-          i-check diri sa if condition kung false ang na return, 
-         pag false, mu break ang loop - Rulona
-         
-         */
+        
       
    if (!displayResult(resultIndex, response)){
         break;
@@ -266,14 +261,27 @@ data[34] = "Virtual Machine: A software-based simulation of a physical computer.
  public static boolean displayResult(int resultIndex, String response) {
  
  /*gihimo an nako ug method ang pag display sa result para limyo ang main - Rulona
- ang argument kay ang resultIndex gikan sa binary search ug response sa user */  
+ ang argument kay ang resultIndex gikan sa binary search ug response sa user */ 
+
+  /* not equal sa -1 means wala sa array list and word na gi pangita sa user.
+          pag 1 ang gi enter sa user mu return ang displayResult method ug boolean na false
+          i-check diri sa if condition kung false ang na return, 
+         pag false, mu break ang loop - Rulona
+         
+         */
+  
  
   if (response.equals("1")) {
         System.out.println("Exiting...");
         return false;
     } else if (resultIndex != -1) {
         System.out.println("Result: " + data[resultIndex]);
-    }/* else {
+    }
+   
+   
+   
+   
+   /* else {
          System.out.println("Word not found")} enchance para magamit ang suggestWords --Romnick Felix*/
     else {// ge add na method to call the suggestWords method
     System.out.println("Word not found");

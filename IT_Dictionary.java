@@ -1,6 +1,4 @@
 package Practice_Area;
-// sa netbeans ng package ah dili ma confuse
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -793,43 +791,66 @@ public class IT_Dictionary {
 
     //---------------------------------------------------------------------------------------------------------------------------
     public static void suggestWords(String input) {
-        // method for suggest word if ever ma misspelled using levenshteinDistance alghorihm - Joseph Mark  divino
+    // method for suggest word if ever ma misspelled using levenshteinDistance alghorihm - Joseph Mark  divino
 
-        System.out.println("Suggestions:");
+    System.out.println("Suggestions:");
 
-        int maxDistance = 3;
-        boolean hasSuggestion = false;
+    int maxDistance = 3;
+    boolean hasSuggestion = false;
+    boolean hasStartsWith = false; // ✅ ADDED: to detect if naa bay startsWith results
 
-        for (int i = 0; i < data.length; i++) {
+    Scanner sc = new Scanner(System.in); // ✅ ADDED: for yes/no interaction
 
-            String word = data[i].split(":")[0].trim();
-            //if nag matched ang gi enter sa user mag show ang mga terms na naa sa dictionary bisag one letter lang -kelvin monsales
-//word.toLowerCase() i ignore niya bisag naka uppercase ang gi enter sa user or lowercase and i convert niya into lowercase ang gi enter sa user. - kelvin monsales
-//startsWith(input.toLowerCase()) meaning i check niya if ang gi enter niya na word the same sa gisearch nimi (sample: nag enter kag pro and ang first three letter na naa sa dictionary is available si programming, protocol,produce, i show ni niya tanan kay match man ang first three letter;) - kelvin monsales
-            //System.out.println("- " + word); if true siya meanig i show niya tanan terms na match sa gi input nimo - kelvin mosales
-            if (word.toLowerCase().startsWith(input.toLowerCase())) {
-                System.out.println("- " + word);
-                hasSuggestion = true;
-            }
+    // 🔹 FIRST LOOP: show startsWith suggestions (single letter / partial match)
+    for (int i = 0; i < data.length; i++) {
 
-            int distance = levenshteinDistance(input.toLowerCase(), word.toLowerCase());
-            /*
-distance (kalayo sa pagka pares) sa term nga gisulod sa user ug sa term sa dictionary (data[i]) kay mas gamay o equal sa maxDistance.
-Ang pasabot sa“distance” kay nagpasabot kung unsa kapareho ang duha ka string. Gamay nga distance = halos pareho ang mga words. divino*/
+        String word = data[i].split(":")[0].trim();
+        //if nag matched ang gi enter sa user mag show ang mga terms na naa sa dictionary bisag one letter lang -kelvin monsales
+        //word.toLowerCase() i ignore niya bisag naka uppercase ang gi enter sa user or lowercase and i convert niya into lowercase ang gi enter sa user. - kelvin monsales
+        //startsWith(input.toLowerCase()) meaning i check niya if ang gi enter niya na word the same sa gisearch nimi (sample: nag enter kag pro and ang first three letter na naa sa dictionary is available si programming, protocol,produce, i show ni niya tanan kay match man ang first three letter;) - kelvin monsales
+        //System.out.println("- " + word); if true siya meanig i show niya tanan terms na match sa gi input nimo - kelvin mosales
 
-            if (distance <= maxDistance) {
-                System.out.println("- " + data[i]);
-                hasSuggestion = true;
-            }
-        }
-
-        if (!hasSuggestion) {
-            System.out.println("No similar IT terms found.");
-            
-            
+        if (word.toLowerCase().startsWith(input.toLowerCase())) {
+            System.out.println("- " + word);
+            hasSuggestion = true;
+            hasStartsWith = true; // ✅ ADDED: mark nga naa tay prefix matches
         }
     }
 
-   
+    // ✅ ADDED: if naa na startsWith results, dili na mu proceed sa levenshtein (no question)
+    if (hasStartsWith) {
+        return;
+    }
 
+    // 🔹 SECOND LOOP: levenshtein suggestion (for misspelled words)
+    for (int i = 0; i < data.length; i++) {
+
+        String word = data[i].split(":")[0].trim();
+
+        int distance = levenshteinDistance(input.toLowerCase(), word.toLowerCase());
+        /*
+distance (kalayo sa pagka pares) sa term nga gisulod sa user ug sa term sa dictionary (data[i]) kay mas gamay o equal sa maxDistance.
+Ang pasabot sa“distance” kay nagpasabot kung unsa kapareho ang duha ka string. Gamay nga distance = halos pareho ang mga words. divino*/
+
+        if (distance <= maxDistance) {
+            // 🔄 CHANGED: instead of auto printing, ask user first
+            System.out.print("Did you mean \"" + word + "\"? (yes/no): ");
+            String answer = sc.nextLine().trim().toLowerCase();
+
+            if (answer.equalsIgnoreCase("yes")) {
+                System.out.println(data[i]); // show full meaning
+                hasSuggestion = true;
+                break; // ✅ ADDED: stop after correct word is confirmed
+            }
+
+            // ❌ OLD CODE (kept as comment for reference)
+            // System.out.println("- " + data[i]);
+            // hasSuggestion = true;
+        }
+    }
+
+    if (!hasSuggestion) {
+        System.out.println("No similar IT terms found.");
+    }
+}
 }

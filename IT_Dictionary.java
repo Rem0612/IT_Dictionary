@@ -205,45 +205,70 @@ public class IT_Dictionary {
             switch (choice) {
                 case 1:
                     searchExactTerm();
+                      // para ma clear ang console after mo exit sa method - Cris laurence Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 2:
                     showRandomTerm();
+                      // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 3:
                     showAllTerms(); //Menu for List of Terms- Albarico, Jason D.
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 4:
                     showSearchHistory();//method call para ipakita ang search history - Biando, Marc Terence B.
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 5:
                     //Feature();
+                   // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");   
                     break;
                 case 6:
                     //Feature();
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 7:
                     //Feature();
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 8:
                     //Feature();
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 9:
                     //Feature();
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 10:
                     //Feature();
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
                     break;
                 case 0:
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J"); 
                     System.out.println("Exiting dictionary. Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
+                    // para ma clear - Longino  
+                System.out.print("\033[H\033[2J");  
             }
 
-            if (choice != 0) {
-                System.out.println();
-                pause();
-            }
+            // Remove kay para dli mag balik2 ang Enter to continue - Cris laurence Longino 
+    /*   if (choice != 0) {  
+            System.out.println();  
+            pause();  
+        }  */
 
         } while (choice != 0);
     }
@@ -271,7 +296,7 @@ public class IT_Dictionary {
             if (!displayResult(resultIndex, response)) {
                 break;
             }
-        }
+        } pause();
     }
 
     //------------------------------------------------------------------------------------------------------------  
@@ -288,6 +313,7 @@ public class IT_Dictionary {
             }//close if
         }//close f-loop
         System.out.println("------------");
+        pause();
     }//close showAllTerms Method
 
     //------------------------------------------------------------------------------------------------------------  
@@ -297,6 +323,7 @@ public class IT_Dictionary {
         Random rand = new Random();
         int index = rand.nextInt(data.length);// method para i-save ang gi search sa user ngadto sa history - (Your Name)
         System.out.println(data[index]);
+            pause();
 
     }
 
@@ -335,6 +362,8 @@ public class IT_Dictionary {
         }
 
         System.out.println("----------------------");
+        pause();
+        
     }
 
     //------------------------------------------------------------------------------------------------------------

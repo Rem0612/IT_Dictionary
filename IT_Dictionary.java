@@ -632,7 +632,10 @@ public class IT_Dictionary {
 
         Random rand = new Random();
         int index = rand.nextInt(data.length);
-        System.out.println(data[index]);
+        if (data[index] != null) { // NULL REMOVER -Benedict Guino-o
+            System.out.println(data[index]);
+        } else {
+            System.out.println("No term available at this index."); }
             pause();
 
     }
@@ -810,6 +813,7 @@ public class IT_Dictionary {
 
     // 🔹 FIRST LOOP: show startsWith suggestions (single letter / partial match)
     for (int i = 0; i < data.length; i++) {
+        if (data[i] == null) continue; // NULL REMOVER - Divino
 
         String word = data[i].split(":")[0].trim();
         //if nag matched ang gi enter sa user mag show ang mga terms na naa sa dictionary bisag one letter lang -kelvin monsales
@@ -831,7 +835,7 @@ public class IT_Dictionary {
 
     // 🔹 SECOND LOOP: levenshtein suggestion (for misspelled words)
     for (int i = 0; i < data.length; i++) {
-
+        if (data[i] == null) continue; // NULL REMOVER - Divino
         String word = data[i].split(":")[0].trim();
 
         int distance = levenshteinDistance(input.toLowerCase(), word.toLowerCase());

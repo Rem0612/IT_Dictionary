@@ -553,11 +553,14 @@ public class IT_Dictionary {
 
             //Enhanced Filtering for User Input - Albarico, Jason D.
             cleanInput = response.trim();// delete spaces. 
-            addToHistory(cleanInput);//tawagon ang method para i-save ang user input sa history - Biando, Marc Terence B.
+            
             if (cleanInput.isEmpty()) {
                 System.out.println("ERROR: Please enter a word. Input Cannot be blank.");//Invalid Input
                 continue;
             }//close if
+            if (!cleanInput.equals("1")) {
+             addToHistory(cleanInput);
+            } // dili i-apil ang "1" kay exit command man ni - Biando, Marc Terence
 
             int resultIndex = BinarySearch(data, cleanInput);
 

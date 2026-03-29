@@ -110,7 +110,7 @@ public class IT_Dictionary {
 
     static void searchExactTerm() {
         while (true) {
-            System.out.print("Search an IT term (or enter 1 to exit): ");
+            System.out.print("Search an IT term (Enter 0 to return): ");
             String response = input.nextLine();
             cleanInput = response.trim();
 
@@ -119,15 +119,12 @@ public class IT_Dictionary {
                 continue;
             }
 
+            int resultIndex = BinarySearch(Data.data, cleanInput);
             if (!displayResult(resultIndex, cleanInput)) {
                 return;
             }
-
             addToHistory(cleanInput);
-            int resultIndex = BinarySearch(Data.data, cleanInput);
-            
         }
-        pause();
     }
 
     static void showAllTerms() {

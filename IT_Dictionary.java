@@ -77,6 +77,37 @@ public class IT_Dictionary {
         System.out.flush();
     }
 
+    public static int BinarySearch(String[] list, String target) {
+        int low = 0;
+        int high = list.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (list[mid] == null) { low++; continue; }
+            
+            String currentWord = list[mid].split(":")[0].trim();
+            int comparison = target.compareToIgnoreCase(currentWord);
+
+            if (comparison == 0) return mid;
+            else if (comparison > 0) low = mid + 1;
+            else high = mid - 1;
+        }
+        return -1;
+    }
+
+    public static boolean displayResult(int resultIndex, String response) {
+        if (response.equals("0")) {
+            System.out.println("Exiting...");
+            return false;
+        } else if (resultIndex != -1) {
+            System.out.println("Result: " + Data.data[resultIndex]);
+        } else {
+            System.out.println("Word not found");
+            suggestWords(cleanInput);
+        }
+        return true;
+    }
+
     static void searchExactTerm() {
         while (true) {
             System.out.print("Search an IT term (or enter 1 to exit): ");
@@ -87,16 +118,14 @@ public class IT_Dictionary {
                 System.out.println("ERROR: Please enter a word. Input Cannot be blank.");
                 continue;
             }
-            if (cleanInput.equals("1")) {
-                break;
+
+            if (!displayResult(resultIndex, cleanInput)) {
+                return;
             }
 
             addToHistory(cleanInput);
             int resultIndex = BinarySearch(Data.data, cleanInput);
-
-            if (!displayResult(resultIndex, response)) {
-                break;
-            }
+            
         }
         pause();
     }
@@ -166,37 +195,6 @@ public class IT_Dictionary {
                 System.out.println("Please enter a valid number.");
             }
         }
-    }
-
-    public static int BinarySearch(String[] list, String target) {
-        int low = 0;
-        int high = list.length - 1;
-
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            if (list[mid] == null) { low++; continue; }
-            
-            String currentWord = list[mid].split(":")[0].trim();
-            int comparison = target.compareToIgnoreCase(currentWord);
-
-            if (comparison == 0) return mid;
-            else if (comparison > 0) low = mid + 1;
-            else high = mid - 1;
-        }
-        return -1;
-    }
-
-    public static boolean displayResult(int resultIndex, String response) {
-        if (response.equals("1")) {
-            System.out.println("Exiting...");
-            return false;
-        } else if (resultIndex != -1) {
-            System.out.println("Result: " + Data.data[resultIndex]);
-        } else {
-            System.out.println("Word not found");
-            suggestWords(cleanInput);
-        }
-        return true;
     }
 
     public static int levenshteinDistance(String a, String b) {

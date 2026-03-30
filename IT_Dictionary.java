@@ -1,5 +1,8 @@
+
+
+
 import java.util.Random;
-import java.util.Scanner;
+ import java.util.Scanner;
 
 public class IT_Dictionary {
     // nag 
@@ -17,6 +20,7 @@ public class IT_Dictionary {
     static String wordOfTheDay = "";
 
     public static void main(String[] args) {
+        
         // Generate Word of the Day once at the start
         if (Data.data.length > 0) {
            
@@ -285,7 +289,7 @@ System.out.println("[ * WORD OF THE DAY * ]");
             }
         }
     }
-}
+
 
 
     static void takeQuiz() { // SERVIDOR,ANDRE  nani tanan  
@@ -357,4 +361,3 @@ System.out.println("[ * WORD OF THE DAY * ]");
         pause();
     }
 }
-
